@@ -1,5 +1,5 @@
 import { EventEmitter } from "https://deno.land/std@0.74.0/node/events.ts";
-import API from "../rest/API.ts";
+import API from "../../rest/API.ts";
 
 export default class Process extends EventEmitter {
   private stopped: boolean;

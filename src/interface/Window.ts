@@ -2,7 +2,7 @@ import { _TextDecoder } from "https://deno.land/std@0.74.0/node/_utils.ts";
 import API from "../rest/API.ts";
 import showChannelMessages from "./frontend/functions/showChannelMessages.ts";
 import showCurrentUserGuilds from "./frontend/functions/showCurrentUserGuilds.ts";
-import Process from "./Process.ts";
+import Process from "./backend/Process.ts";
 
 export default class Window {
   private alive: boolean;
