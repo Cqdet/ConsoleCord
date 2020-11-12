@@ -5,9 +5,6 @@ export default class Process extends EventEmitter {
   private stopped: boolean;
 
   private keyReader: Deno.Reader & { rid: number };
-  private keyBuffer: Uint8Array;
-
-  private commandBuffer: Uint8Array;
 
   constructor(token: string) {
     super();
@@ -15,29 +12,24 @@ export default class Process extends EventEmitter {
     this.stopped = false;
 
     this.keyReader = Deno.stdin;
-    this.keyBuffer = new Uint8Array(1024);
-
-    this.commandBuffer = new Uint8Array(1024);
-  }
-
-  public start() {
-    this.emit("ready");
   }
 
   public async awaitKeystrokes() {
+    const buffer = new Uint8Array(1024);
     Deno.setRaw(this.keyReader.rid, true);
-    const length = <number> await this.keyReader.read(this.keyBuffer);
+    const length = <number> await this.keyReader.read(buffer);
     Deno.setRaw(this.keyReader.rid, false);
-    const keystroke = this.keyBuffer.subarray(0, length);
+    const keystroke = buffer.subarray(0, length);
     this.emit("keystroke", keystroke);
-    // return keystroke;
+    return keystroke;
   }
 
   public async awaitCommand() {
-    await Deno.stdin.read(this.commandBuffer);
-    const cmd = this.commandBuffer;
+    const buffer = new Uint8Array(1024);
+    await Deno.stdin.read(buffer);
+    const cmd = buffer;
     this.emit("command", cmd);
-    // return cmd;
+    return cmd;
   }
 
   public stop(): void {

@@ -11,7 +11,7 @@ export default class Format {
   }
 
   public static staticSquare(content: string, length: number) {
-    if (length % 2 !== 0) throw new Error("Non-odd number given");
+    if (length % 2 !== 0) throw new Error("Non-even number given");
     return `${Format.color(0x005AAA, `|${"-".repeat(length)}|`)}\n  ${
       Format.color(0x088B65, content)
     } \n${Format.color(0x005AAA, `|${"-".repeat(length)}|`)}\n`;

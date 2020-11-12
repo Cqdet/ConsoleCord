@@ -95,6 +95,10 @@ export default class API {
     );
   }
 
+  public static async getCurrentUserGuilds() {
+    return await this.request("GET", "/users/@me/guilds", {}, true);
+  }
+
   public static async getGuild(guildID: string) {
     return await this.request("GET", `/guilds/${guildID}`, {}, true);
   }
